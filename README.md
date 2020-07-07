@@ -59,6 +59,8 @@ FoodSwipe is a platform that allows a user to easily pick a restaurant they woul
     * Allow a user to override this and skip to all accepted restaurants
 * Allow a user to by default, share to their news feed the restaurant they have chosen
 * Allow a user to login with Facebook
+* Allow a user to see how many times a specific restaurant has been visited
+   * Generate a Unique ID per restaurant
 
 ### 2. Screen Archetypes
 

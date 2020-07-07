@@ -97,7 +97,7 @@ FoodSwipe is a platform that allows a user to easily pick a restaurant they woul
 
 ## Wireframes
 [Add picture of your hand sketched wireframes in this section]
-<img src="YOUR_WIREFRAME_IMAGE_URL" width=600>
+![Wireframe](screenshots/wireframe.jpg)
 
 ### [BONUS] Digital Wireframes & Mockups
 

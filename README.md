@@ -31,19 +31,16 @@ FoodSwipe is a platform that allows a user to easily pick a restaurant they woul
     * Create a page to show a detailed view of a restaurant
     * Create a page to showcase a restaurant that allows users to accept or deny the restaurant
     * Create a page that allows a user to view all accepted/denied restaurants
-    * Create a page that showcases all pictures a user has taken on their profile
 * Cache restaurants that have been chosen to attend in a database
 * Allow users to log in/log out of the app
 * Allow users to signup with a new profile with basic information
     * Save user information in a database and generate a unique ID per user
-* Allow users to take a picture of their restaurant and share it to their feed
-* Allow a user to decide how many restuarants need to be accepted before allowing the user to choose from their accepted restaurants
-    * Allow a user to override this and skip to all accepted restaurants
 * Allow users to easily navigate to the restaurant with the Google Maps SDK
+* Allow users to filter the types of restaurants to choose from
 * Allow users to easily swipe on a restaurant to accept/deny
 * Animate the swiping as well as the accepting/denying of apps with bright colors
+* Allow a user to take a picture to use as their avatar for their profile
 * Incorporate the Material Design library
-* Allow a user to by default, share to their news feed the restaurant they have chosen
 
 **Optional Nice-to-have Stories**
 
@@ -55,7 +52,13 @@ FoodSwipe is a platform that allows a user to easily pick a restaurant they woul
     * Create a page that showcases all of the accepted restaurants from a group
     * Create a page to show case "Restaurant Playlists"
     * Create a page to allow for filter settings for restaurants to choose from
+    * Create a page that showcases all pictures a user has taken on their profile
 * Allow users to follow another user based on UID
+* Allow users to take a picture of their restaurant and share it to their feed (this feed is local to the FoodSwipe app as opposed to sharing to Twitter
+* Allow a user to decide how many restuarants need to be accepted before allowing the user to choose from their accepted restaurants
+    * Allow a user to override this and skip to all accepted restaurants
+* Allow a user to by default, share to their news feed the restaurant they have chosen
+* Allow a user to login with Facebook
 
 ### 2. Screen Archetypes
 

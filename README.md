@@ -124,6 +124,7 @@ FoodSwipe is a platform that allows a user to easily pick a restaurant they woul
 #### [OPTIONAL:] Existing API Endpoints
 ##### US Restaurants API
 - Base URL - [https://us-restaurant-menus.p.rapidapi.com](https://us-restaurant-menus.p.rapidapi.com)
+- Docs - [https://english.api.rakuten.net/restaurantmenus/api/us-restaurant-menus](https://english.api.rakuten.net/restaurantmenus/api/us-restaurant-menus)
 
    HTTP Verb | Endpoint | Description
    ----------|----------|------------

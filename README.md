@@ -106,8 +106,27 @@ FoodSwipe is a platform that allows a user to easily pick a restaurant they woul
 ## Schema 
 [This section will be completed in Unit 9]
 ### Models
-[Add table of models]
+### Restaurant
+   | Property      | Type     | Description |
+   | ------------- | -------- | ------------|
+   | objectId      | String   | unique id for the user post (default field) |
+   | createdAt     | DateTime | date when post is created (default field) |
+   | updatedAt     | DateTime | date when post is last updated (default field) |
+   | visitedCount  | Number   | number of times all users on the platform have visited the restaurant |
+   | name          | String   | name of the restaurant |
+   | restaurantId  | Number   | API id for restaurant |
+   
 ### Networking
-- [Add list of network requests by screen ]
-- [Create basic snippets for each Parse network request]
-- [OPTIONAL: List endpoints if using existing API such as Yelp]
+#### List of parse requests by screen
+   - Accepted/Denied Restaurant Cycle Screen
+      - (Create/POST) Create restaurant if the specified `restaurantId` does not already exist. If it does, update the `visitedCount`
+      
+#### [OPTIONAL:] Existing API Endpoints
+##### US Restaurants API
+- Base URL - [https://us-restaurant-menus.p.rapidapi.com](https://us-restaurant-menus.p.rapidapi.com)
+
+   HTTP Verb | Endpoint | Description
+   ----------|----------|------------
+    `GET`    | /restaurants/zipcode | get all restaurants by zip code
+    `GET`    | /restaurant | get details about a specific restaurants using `restaurantId`
+      

@@ -1,5 +1,6 @@
 package com.dtavana.foodswipe.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,11 +10,14 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.dtavana.foodswipe.activities.MainActivity;
 import com.dtavana.foodswipe.databinding.FragmentLoginBinding;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
+
+import java.util.Objects;
 
 public class LoginFragment extends Fragment {
 
@@ -58,7 +62,7 @@ public class LoginFragment extends Fragment {
                     return;
                 }
                 Log.i(TAG, "done: Finished logging in: " + username);
-//                goMainActivity();
+                goMainActivity();
             }
         });
     }
@@ -87,10 +91,9 @@ public class LoginFragment extends Fragment {
         loginUser(username, password);
     }
 
-//    private void goMainActivity() {
-//        Intent i = new Intent(getActivity(), MainActivity.class);
-//        startActivity(i);
-//        Objects.requireNonNull(getActivity()).finish();
-//    }
-
+    private void goMainActivity() {
+        Intent i = new Intent(getActivity(), MainActivity.class);
+        startActivity(i);
+        Objects.requireNonNull(getActivity()).finish();
+    }
 }

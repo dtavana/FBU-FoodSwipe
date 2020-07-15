@@ -2,11 +2,14 @@ package com.dtavana.foodswipe.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.dtavana.foodswipe.databinding.ActivityLoginBinding;
 import com.parse.ParseUser;
+
+import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -22,13 +25,13 @@ public class LoginActivity extends AppCompatActivity {
 
         if(ParseUser.getCurrentUser() != null) {
             Log.i(TAG, "onCreate: User already logged in, skipping login screen");
-//            goMainActivity();
+            goMainActivity();
         }
     }
 
-//    private void goMainActivity() {
-//        Intent i = new Intent(this, MainActivity.class);
-//        startActivity(i);
-//        Objects.requireNonNull(getActivity()).finish();
-//    }
+    private void goMainActivity() {
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+        finish();
+    }
 }

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.dtavana.foodswipe.databinding.ActivityMainBinding;
+import com.dtavana.foodswipe.utils.SetupNavigation;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,5 +16,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        SetupNavigation.run(getSupportFragmentManager(), this, binding);
     }
 }

@@ -29,7 +29,7 @@ public class Restaurant extends ParseObject {
     String imageUrl;
     int price;
 
-    public static Restaurant fromJson(JSONObject obj) throws JSONException, ParseException {
+    public static Restaurant fromJson(JSONObject obj) throws JSONException {
 //        ParseQuery<Restaurant> query = ParseQuery.getQuery(Restaurant.class);
 //        String restaurantId = obj.getString("id");
 //        query.whereEqualTo("restaurantId", restaurantId);

@@ -10,29 +10,33 @@ import androidx.fragment.app.FragmentManager;
 
 import com.dtavana.foodswipe.R;
 import com.dtavana.foodswipe.databinding.ActivityMainBinding;
+import com.dtavana.foodswipe.fragments.CycleFragment;
+import com.dtavana.foodswipe.fragments.ListFragment;
+import com.dtavana.foodswipe.fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class SetupNavigation {
-    public static void run(final FragmentManager manager , final Context ctx, ActivityMainBinding binding) {
+    public static void run(final FragmentManager manager, ActivityMainBinding binding) {
         binding.navigation.getRoot().setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment fragment;
                 switch (item.getItemId()) {
                     case R.id.miList:
-                        Toast.makeText(ctx, "List Restaurants", Toast.LENGTH_SHORT).show();
+                        fragment = new ListFragment();
                         break;
                     case R.id.miCycle:
-                        Toast.makeText(ctx, "Cycle Restaurants", Toast.LENGTH_SHORT).show();
+                    default:
+                        fragment = new CycleFragment();
                         break;
                     case R.id.miProfile:
-                    default:
-                        Toast.makeText(ctx, "Profile", Toast.LENGTH_SHORT).show();
+                        fragment = new ProfileFragment();
                         break;
                 }
-//                manager.beginTransaction().replace(R.id.flContainer, fragment).commit();
+                manager.beginTransaction().replace(R.id.flContainer, fragment).commit();
                 return true;
             }
         });
+        binding.navigation.getRoot().setSelectedItemId(R.id.miCycle);
     }
 }

@@ -17,6 +17,6 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        SetupNavigation.run(getSupportFragmentManager(), this, binding);
+        SetupNavigation.run(getSupportFragmentManager(), binding);
     }
 }

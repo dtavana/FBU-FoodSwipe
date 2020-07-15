@@ -25,6 +25,8 @@ public class LoginFragment extends Fragment {
 
     FragmentLoginBinding binding;
 
+    public LoginFragment() {}
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         // Defines the xml file for the fragment

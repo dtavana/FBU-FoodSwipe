@@ -5,6 +5,6 @@
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
     android:background="@android:color/black"
-    app:itemBackground="@android:color/black"
+    app:itemBackground="@color/colorAlmostBlack"
     app:itemIconTint="@android:color/white"
     app:menu="@menu/menu_main" />

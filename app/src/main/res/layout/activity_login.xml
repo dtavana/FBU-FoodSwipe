@@ -7,7 +7,7 @@
     android:background="@android:color/black"
     tools:context=".activities.LoginActivity">
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:name="com.dtavana.foodswipe.fragments.LoginFragment"
         android:id="@+id/loginFragment"
         android:layout_width="match_parent"

@@ -1,6 +1,7 @@
 package com.dtavana.foodswipe.network;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.dtavana.foodswipe.R;
 import com.dtavana.foodswipe.models.Restaurant;
@@ -10,11 +11,18 @@ import com.parse.ParseObject;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 
-public class ParseApplication extends Application {
+public class FoodSwipeApplication extends Application {
+
+    static FoodSwipeClient client;
+
     @Override
     public void onCreate() {
         super.onCreate();
+        setupParse();
+        setupRestClient();
+    }
 
+    private void setupParse() {
         ParseObject.registerSubclass(Restaurant.class);
 
         // Use for troubleshooting -- remove this line for production
@@ -36,5 +44,11 @@ public class ParseApplication extends Application {
                 .clientKey(getString(R.string.PARSE_CLIENTKEY))  // set explicitly unless clientKey is explicitly configured on Parse server
                 .clientBuilder(builder)
                 .server(getString(R.string.PARSE_SERVER)).build());
+    }
+
+    private void setupRestClient() { client = new FoodSwipeClient(); }
+
+    public static FoodSwipeClient getClient() {
+        return client;
     }
 }

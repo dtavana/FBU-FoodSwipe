@@ -12,6 +12,8 @@ import com.dtavana.foodswipe.databinding.FragmentCycleBinding;
 
 public class CycleFragment extends Fragment {
 
+    public static final String TAG = "CycleFragment";
+
     FragmentCycleBinding binding;
 
     public CycleFragment() {}

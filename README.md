@@ -123,11 +123,10 @@ FoodSwipe is a platform that allows a user to easily pick a restaurant they woul
       
 #### [OPTIONAL:] Existing API Endpoints
 ##### US Restaurants API
-- Base URL - [https://opentable.herokuapp.com/api](https://opentable.herokuapp.com/api)
-- Docs - [https://opentable.herokuapp.com](https://opentable.herokuapp.com)
+- Base URL - [https://developers.zomato.com/api/v2.1](https://developers.zomato.com/api/v2.1)
+- Docs - [https://developers.zomato.com/documentation](https://developers.zomato.com/documentation)
 
    HTTP Verb | Endpoint | Description
    ----------|----------|------------
-    `GET`    | /restaurants | get all restaurants by zip code
-    `GET`    | /restaurants/:id | get details about a specific restaurants using `restaurantId`
+    `GET`    | /search | get all restaurants by latitude and longitude
       

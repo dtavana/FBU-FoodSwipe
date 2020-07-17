@@ -29,21 +29,9 @@
         android:id="@+id/ivPicture"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvCategory"
+        android:layout_below="@+id/tvName"
         android:layout_alignParentStart="true"
         android:layout_marginTop="25dp"
         tools:src="@tools:sample/avatars" />
 
-    <TextView
-        android:id="@+id/tvCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvName"
-        android:layout_alignParentStart="false"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@android:color/white"
-        tools:text="Food category" />
 </RelativeLayout>

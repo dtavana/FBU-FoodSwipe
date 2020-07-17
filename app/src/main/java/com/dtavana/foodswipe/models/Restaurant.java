@@ -4,8 +4,12 @@ import com.parse.ParseClassName;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @ParseClassName("Restaurant")
 public class Restaurant extends ParseObject {
@@ -22,11 +26,12 @@ public class Restaurant extends ParseObject {
 
     String address;
     String city;
-    String state;
-    String zipCode;
     String phone;
-    String reserveUrl;
-    String imageUrl;
+    String photosUrl;
+    String cuisines;
+    String timings;
+    List<String> highlights;
+    Rating rating;
     int price;
 
     public static Restaurant fromJson(JSONObject obj) throws JSONException {
@@ -35,20 +40,41 @@ public class Restaurant extends ParseObject {
 //        query.whereEqualTo("restaurantId", restaurantId);
 //        Restaurant restaurant = query.getFirst();
         Restaurant restaurant = new Restaurant();
-        restaurant.setRestaurantId(obj.getInt("id"));
+
+        JSONObject R = obj.getJSONObject("R");
+        restaurant.setRestaurantId(R.getInt("res_id"));
+
         restaurant.setName(obj.getString("name"));
-        restaurant.setAddress(obj.getString("address"));
-        restaurant.setCity(obj.getString("city"));
-        restaurant.setState(obj.getString("state"));
-        restaurant.setZipCode(obj.getString("postal_code"));
-        restaurant.setPhone(obj.getString("phone"));
-        restaurant.setReserveUrl(obj.getString("mobile_reserve_url"));
-        restaurant.setImageUrl(obj.getString("image_url"));
-        restaurant.setPrice(obj.getInt("price"));
+
+        JSONObject location = obj.getJSONObject("location");
+        restaurant.setAddress(location.getString("address"));
+        restaurant.setCity(location.getString("city"));
+
+        JSONObject ratingRaw = obj.getJSONObject("user_rating");
+        Rating rating = new Rating(
+                ratingRaw.getDouble("aggregate_rating"),
+                ratingRaw.getString("rating_text"),
+                ratingRaw.getString("rating_color"),
+                ratingRaw.getInt("votes"));
+        restaurant.setRating(rating);
+
+        restaurant.setPhone(obj.getString("phone_numbers"));
+        restaurant.setPrice(obj.getInt("price_range"));
+        restaurant.setCuisines(obj.getString("cuisines"));
+        restaurant.setTimings(obj.getString("timings"));
+        restaurant.setPhotosUrl(obj.getString("photos_url"));
+
+        List<String> highlights = new ArrayList<>();
+        JSONArray highlightsRaw = obj.getJSONArray("highlights");
+        for(int i = 0; i < highlightsRaw.length(); i++) {
+            highlights.add(highlightsRaw.getString(i));
+        }
+        restaurant.setHighlights(highlights);
+
         return restaurant;
     }
 
-    public Number getVisitedCount() { return visitedCount; }
+    public Number getVisitedCount() { return getNumber(KEY_VISITEDCOUNT); }
     public void setVisitedCount(Number visitedCount) { put(KEY_VISITEDCOUNT, visitedCount); this.visitedCount = visitedCount; }
 
     public String getName() { return name; }
@@ -71,20 +97,6 @@ public class Restaurant extends ParseObject {
         this.city = city;
     }
 
-    public String getState() {
-        return state;
-    }
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getZipCode() {
-        return zipCode;
-    }
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
-    }
-
     public String getPhone() {
         return phone;
     }
@@ -92,24 +104,64 @@ public class Restaurant extends ParseObject {
         this.phone = phone;
     }
 
-    public String getReserveUrl() {
-        return reserveUrl;
-    }
-    public void setReserveUrl(String reserveUrl) {
-        this.reserveUrl = reserveUrl;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
     public int getPrice() {
         return price;
     }
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public String getPhotosUrl() {
+        return photosUrl;
+    }
+
+    public void setPhotosUrl(String photosUrl) {
+        this.photosUrl = photosUrl;
+    }
+
+    public String getCuisines() {
+        return cuisines;
+    }
+
+    public void setCuisines(String cuisines) {
+        this.cuisines = cuisines;
+    }
+
+    public String getTimings() {
+        return timings;
+    }
+
+    public void setTimings(String timings) {
+        this.timings = timings;
+    }
+
+    public List<String> getHighlights() {
+        return highlights;
+    }
+
+    public void setHighlights(List<String> highlights) {
+        this.highlights = highlights;
+    }
+
+    public Rating getRating() {
+        return rating;
+    }
+
+    public void setRating(Rating rating) {
+        this.rating = rating;
+    }
+
+    static class Rating {
+        public double rating;
+        public String text;
+        public String color;
+        public int votes;
+
+        public Rating(double rating, String text, String color, int votes) {
+            this.rating = rating;
+            this.text = text;
+            this.color = color;
+            this.votes = votes;
+        }
     }
 }

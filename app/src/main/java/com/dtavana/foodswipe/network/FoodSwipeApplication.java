@@ -46,7 +46,9 @@ public class FoodSwipeApplication extends Application {
                 .server(getString(R.string.PARSE_SERVER)).build());
     }
 
-    private void setupRestClient() { client = new FoodSwipeClient(); }
+    private void setupRestClient() {
+        client = new FoodSwipeClient(this);
+    }
 
     public static FoodSwipeClient getClient() {
         return client;

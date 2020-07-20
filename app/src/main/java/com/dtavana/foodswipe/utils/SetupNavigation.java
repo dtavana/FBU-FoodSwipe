@@ -21,19 +21,32 @@ public class SetupNavigation {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment fragment;
+                String TAG;
                 switch (item.getItemId()) {
                     case R.id.miList:
-                        fragment = new ListFragment();
+                        TAG = ListFragment.TAG;
+                        fragment = manager.findFragmentByTag(TAG);
+                        if(fragment == null) {
+                            fragment = new ListFragment();
+                        }
                         break;
                     case R.id.miCycle:
                     default:
-                        fragment = new CycleFragment();
+                        TAG = CycleFragment.TAG;
+                        fragment = manager.findFragmentByTag(TAG);
+                        if(fragment == null) {
+                            fragment = new CycleFragment();
+                        }
                         break;
                     case R.id.miProfile:
-                        fragment = new ProfileFragment();
+                        TAG = ProfileFragment.TAG;
+                        fragment = manager.findFragmentByTag(TAG);
+                        if(fragment == null) {
+                            fragment = new ProfileFragment();
+                        }
                         break;
                 }
-                manager.beginTransaction().replace(R.id.flContainer, fragment).commit();
+                manager.beginTransaction().replace(R.id.flContainer, fragment, TAG).addToBackStack(TAG).commit();
                 return true;
             }
         });

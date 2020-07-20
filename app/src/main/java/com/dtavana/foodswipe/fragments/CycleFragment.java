@@ -75,16 +75,16 @@ public class CycleFragment extends Fragment {
         binding.getRoot().setOnTouchListener(new OnSwipeTouchListener(getContext()) {
             @Override
             public void onSwipeLeft() {
-                // TODO: Add to rejected / accepted lists
                 Log.d(TAG, "onSwipeLeft: Swiping left");
+                denied.add(restaurants.get(currentRestaurant));
                 currentRestaurant++;
                 showCurrentRestaurant();
             }
 
             @Override
             public void onSwipeRight() {
-                // TODO: Add to rejected / accepted lists
                 Log.d(TAG, "onSwipeRight: Swiping right");
+                accepted.add(restaurants.get(currentRestaurant));
                 currentRestaurant++;
                 showCurrentRestaurant();
             }
@@ -106,7 +106,7 @@ public class CycleFragment extends Fragment {
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
-    
+
     @SuppressLint("NewApi")
     private void loadRestaurants() {
         // TODO: Change to allow for configurable restaurants
@@ -168,6 +168,8 @@ public class CycleFragment extends Fragment {
         // TODO: Limit number of restaurants that can be visited
         if(currentRestaurant >= restaurants.size()) {
             Log.d(TAG, "showCurrentRestaurant: Finished iterating through restaurants");
+            Log.d(TAG, "showCurrentRestaurant: accepted" + accepted.toString());
+            binding.getRoot().setOnTouchListener(null);
             // TODO Switch to ListFragment as we have gone through all restaurants
             return;
         }

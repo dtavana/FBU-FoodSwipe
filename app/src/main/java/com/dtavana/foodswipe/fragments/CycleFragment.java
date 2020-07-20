@@ -16,7 +16,6 @@ import com.dtavana.foodswipe.databinding.FragmentCycleBinding;
 import com.dtavana.foodswipe.models.Restaurant;
 import com.dtavana.foodswipe.network.FoodSwipeApplication;
 import com.dtavana.foodswipe.network.FoodSwipeClient;
-import com.dtavana.foodswipe.utils.GlideApp;
 import com.dtavana.foodswipe.utils.OnSwipeTouchListener;
 
 import org.json.JSONArray;
@@ -49,13 +48,13 @@ public class CycleFragment extends Fragment {
         client = FoodSwipeApplication.getClient();
         restaurants = new ArrayList<>();
         loadRestaurants();
-        showCurrentRestaurant();
         return binding.getRoot();
     }
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        showCurrentRestaurant();
         binding.getRoot().setOnTouchListener(new OnSwipeTouchListener(getContext()) {
             @Override
             public void onSwipeLeft() {

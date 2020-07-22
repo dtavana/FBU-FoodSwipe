@@ -1,7 +1,6 @@
 package com.dtavana.foodswipe.models;
 
 import com.parse.ParseClassName;
-import com.parse.ParseException;
 import com.parse.ParseObject;
 
 import org.json.JSONArray;
@@ -74,7 +73,9 @@ public class Restaurant extends ParseObject {
         return restaurant;
     }
 
-    public Number getVisitedCount() { return getNumber(KEY_VISITEDCOUNT); }
+    public Number getVisitedCount() {
+        return getNumber(KEY_VISITEDCOUNT);
+    }
     public void setVisitedCount(Number visitedCount) { put(KEY_VISITEDCOUNT, visitedCount); this.visitedCount = visitedCount; }
 
     public String getName() { return name; }
@@ -151,7 +152,7 @@ public class Restaurant extends ParseObject {
         this.rating = rating;
     }
 
-    static class Rating {
+    public static class Rating {
         public double rating;
         public String text;
         public String color;
@@ -162,6 +163,14 @@ public class Restaurant extends ParseObject {
             this.text = text;
             this.color = color;
             this.votes = votes;
+        }
+
+        public String getVotesString() {
+            return String.format("%s : %d Votes", text, votes);
+        }
+
+        public String getRatingString() {
+            return String.format("%.2f/5.0", rating);
         }
     }
 }

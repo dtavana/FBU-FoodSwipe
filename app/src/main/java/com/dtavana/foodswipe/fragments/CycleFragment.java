@@ -192,7 +192,9 @@ public class CycleFragment extends Fragment {
         Restaurant restaurant = restaurants.get(currentRestaurant);
         binding.tvName.setText(restaurant.getName());
         binding.tvCuisines.setText(restaurant.getCuisines());
-        binding.tvVisitedCount.setText(restaurant.getVisitedCount());
+        Number visitedCount = restaurant.getVisitedCount();
+        String visitedCountString = String.format("Visited %d time(s)", visitedCount == null ? 0 : visitedCount);
+        binding.tvVisitedCount.setText(visitedCountString);
 //        Log.d(TAG, "showCurrentRestaurant: ImageURL: " + restaurant.getPhotosUrl());
 //        // TODO: getImageURL is now a website rather than an image URL
 //        GlideApp

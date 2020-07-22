@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.codepath.asynchttpclient.RequestParams;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
@@ -72,6 +73,7 @@ public class CycleFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         loadRestaurants();
+
         binding.getRoot().setOnTouchListener(new OnSwipeTouchListener(getContext()) {
             @Override
             public void onSwipeLeft() {
@@ -87,6 +89,17 @@ public class CycleFragment extends Fragment {
                 accepted.add(restaurants.get(currentRestaurant));
                 currentRestaurant++;
                 showCurrentRestaurant();
+            }
+        });
+
+        binding.btnDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "onClick: Click detected");
+                FragmentManager manager = getChildFragmentManager();
+                Fragment fragment = DetailFragment.newInstance(restaurants.get(currentRestaurant));
+                String TAG = DetailFragment.TAG;
+                manager.beginTransaction().add(fragment, TAG).commit();
             }
         });
     }
@@ -122,6 +135,9 @@ public class CycleFragment extends Fragment {
             LocationServices.getFusedLocationProviderClient(getActivity()).getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
                 @Override
                 public void onSuccess(Location location) {
+                    if(location == null) {
+                        Log.e(TAG, "onSuccess: Error loading location");
+                    }
                     params.put("lat", (long) location.getLatitude());
                     params.put("lon", (long) location.getLongitude());
                     client.getRestaurants(params, new JsonHttpResponseHandler() {
@@ -175,6 +191,10 @@ public class CycleFragment extends Fragment {
         }
         Restaurant restaurant = restaurants.get(currentRestaurant);
         binding.tvName.setText(restaurant.getName());
+        binding.tvCuisines.setText(restaurant.getCuisines());
+        Number visitedCount = restaurant.getVisitedCount();
+        String visitedCountString = String.format("Visited %d time(s)", visitedCount == null ? 0 : visitedCount);
+        binding.tvVisitedCount.setText(visitedCountString);
 //        Log.d(TAG, "showCurrentRestaurant: ImageURL: " + restaurant.getPhotosUrl());
 //        // TODO: getImageURL is now a website rather than an image URL
 //        GlideApp

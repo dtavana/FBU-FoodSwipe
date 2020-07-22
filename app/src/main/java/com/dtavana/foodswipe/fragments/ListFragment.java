@@ -12,6 +12,8 @@ import com.dtavana.foodswipe.databinding.FragmentListBinding;
 
 public class ListFragment extends Fragment {
 
+    public static final String TAG = "ListFragment";
+
     FragmentListBinding binding;
 
     public ListFragment() {}

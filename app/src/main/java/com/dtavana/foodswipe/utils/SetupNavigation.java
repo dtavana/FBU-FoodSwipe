@@ -1,8 +1,6 @@
 package com.dtavana.foodswipe.utils;
 
-import android.content.Context;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -10,7 +8,6 @@ import androidx.fragment.app.FragmentManager;
 
 import com.dtavana.foodswipe.R;
 import com.dtavana.foodswipe.databinding.ActivityMainBinding;
-import com.dtavana.foodswipe.fragments.CycleFragment;
 import com.dtavana.foodswipe.fragments.ListFragment;
 import com.dtavana.foodswipe.fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -32,12 +29,8 @@ public class SetupNavigation {
                         break;
                     case R.id.miCycle:
                     default:
-                        TAG = CycleFragment.TAG;
-                        fragment = manager.findFragmentByTag(TAG);
-                        if(fragment == null) {
-                            fragment = new CycleFragment();
-                        }
-                        break;
+                        FilterFirst.run(manager, null, null);
+                        return true;
                     case R.id.miProfile:
                         TAG = ProfileFragment.TAG;
                         fragment = manager.findFragmentByTag(TAG);

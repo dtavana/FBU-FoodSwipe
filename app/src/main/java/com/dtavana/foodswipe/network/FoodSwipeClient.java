@@ -35,6 +35,24 @@ public class FoodSwipeClient extends AsyncHttpClient {
         get(apiUrl, baseHeaders, params, handler);
     }
 
+    public void getCategories(RequestParams params, JsonHttpResponseHandler handler) {
+        String apiUrl = getApiUrl("categories");
+        Log.d(TAG, "getCategories: Resolved apiIrl: " + apiUrl);
+        get(apiUrl, baseHeaders, params, handler);
+    }
+
+    public void getCuisines(RequestParams params, JsonHttpResponseHandler handler) {
+        String apiUrl = getApiUrl("cuisines");
+        Log.d(TAG, "getCuisines: Resolved apiIrl: " + apiUrl);
+        get(apiUrl, baseHeaders, params, handler);
+    }
+
+    public void getEstablishments(RequestParams params, JsonHttpResponseHandler handler) {
+        String apiUrl = getApiUrl("establishments");
+        Log.d(TAG, "getCuisines: Resolved apiIrl: " + apiUrl);
+        get(apiUrl, baseHeaders, params, handler);
+    }
+
     private String getApiUrl(String endpoint) {
         return String.format("%s%s", BASE_URL, endpoint);
     }

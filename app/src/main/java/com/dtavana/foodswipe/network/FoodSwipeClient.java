@@ -37,7 +37,7 @@ public class FoodSwipeClient extends AsyncHttpClient {
 
     public void getCategories(RequestParams params, JsonHttpResponseHandler handler) {
         String apiUrl = getApiUrl("categories");
-        Log.d(TAG, "getCuisines: Resolved apiIrl: " + apiUrl);
+        Log.d(TAG, "getCategories: Resolved apiIrl: " + apiUrl);
         get(apiUrl, baseHeaders, params, handler);
     }
 

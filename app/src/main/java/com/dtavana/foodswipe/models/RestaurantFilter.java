@@ -1,5 +1,8 @@
 package com.dtavana.foodswipe.models;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class RestaurantFilter {
     int id;
     String name;

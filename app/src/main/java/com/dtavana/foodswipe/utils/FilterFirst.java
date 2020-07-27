@@ -1,6 +1,7 @@
 package com.dtavana.foodswipe.utils;
 
 import android.location.Location;
+import android.util.Log;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -15,13 +16,16 @@ import java.util.List;
 
 public class FilterFirst {
 
+    public static final String LOG_TAG = "FilterFirst";
+
     public static boolean filtered = false;
 
     public static void run(FragmentManager manager, HashMap<FilterFragment.ALL_FILTERS, List<RestaurantFilter>> filterCache, Location location) {
-        String TAG;
         Fragment fragment;
+        String TAG;
 
         if(filtered) {
+            Log.d(LOG_TAG, "run: Running CycleFragment");
             TAG = CycleFragment.TAG;
             fragment = manager.findFragmentByTag(TAG);
             if(fragment == null) {
@@ -29,6 +33,7 @@ public class FilterFirst {
             }
         }
         else {
+            Log.d(LOG_TAG, "run: Running FilterFragment");
             TAG = FilterFragment.TAG;
             fragment = manager.findFragmentByTag(TAG);
             if(fragment == null) {

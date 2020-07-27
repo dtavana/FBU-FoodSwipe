@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.codepath.asynchttpclient.RequestParams;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.dtavana.foodswipe.R;
 import com.dtavana.foodswipe.databinding.FragmentCycleBinding;
 import com.dtavana.foodswipe.models.Restaurant;
 import com.dtavana.foodswipe.models.RestaurantFilter;
@@ -38,16 +39,14 @@ public class CycleFragment extends Fragment {
 
     public static final String TAG = "CycleFragment";
 
-    public static final int PERMISSION_REQUEST_CODE = 999;
-
     FragmentCycleBinding binding;
 
     HashMap<FilterFragment.ALL_FILTERS, List<RestaurantFilter>> filterCache;
     Location location;
 
     List<Restaurant> restaurants;
-    List<Restaurant> accepted;
-    List<Restaurant> denied;
+    ArrayList<Restaurant> accepted;
+    ArrayList<Restaurant> denied;
     int currentRestaurant = 0;
     
     FoodSwipeClient client;
@@ -56,7 +55,6 @@ public class CycleFragment extends Fragment {
     }
 
     public static CycleFragment newInstance(HashMap<FilterFragment.ALL_FILTERS, List<RestaurantFilter>> filterCache, Location location) {
-
         Bundle args = new Bundle();
         args.putSerializable("filterCache", filterCache);
         args.putParcelable("location", location);
@@ -142,6 +140,9 @@ public class CycleFragment extends Fragment {
                         int count = data.getInt("results_shown");
                         if (count > 0) {
                             JSONArray allRestaurants = data.getJSONArray("restaurants");
+                            if(allRestaurants.length() < 1) {
+                                //TODO: Could not find any restaurants with provided filters, restart filter process
+                            }
                             for (int i = 0; i < allRestaurants.length(); i++) {
                                 JSONObject currentRestaurant = allRestaurants.getJSONObject(i).getJSONObject("restaurant");
                                 Restaurant newRestaurant = Restaurant.fromJson(currentRestaurant);
@@ -183,13 +184,14 @@ public class CycleFragment extends Fragment {
     }
 
     private void showCurrentRestaurant() {
-        Log.d(TAG, "showCurrentRestaurant: Showing current restaurant");
+        Log.d(TAG, "showCurrentRestaurant: Showing restaurant #" + currentRestaurant);
         // TODO: Limit number of restaurants that can be visited
         if(currentRestaurant >= restaurants.size()) {
             Log.d(TAG, "showCurrentRestaurant: Finished iterating through restaurants");
-            Log.d(TAG, "showCurrentRestaurant: accepted" + accepted.toString());
             binding.getRoot().setOnTouchListener(null);
-            // TODO Switch to ListFragment as we have gone through all restaurants
+            ListFragment fragment = ListFragment.newInstance(accepted, denied);
+            getParentFragmentManager().beginTransaction().replace(R.id.flContainer, fragment, ListFragment.TAG).addToBackStack(ListFragment.TAG).commit();
+
             return;
         }
         Restaurant restaurant = restaurants.get(currentRestaurant);

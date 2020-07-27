@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black"
     tools:context=".fragments.ListFragment">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvRestaurants"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="List Fragment"
-        android:textColor="@android:color/white" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
 
-</FrameLayout>
+</RelativeLayout>

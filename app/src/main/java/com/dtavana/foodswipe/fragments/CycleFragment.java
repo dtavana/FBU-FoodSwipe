@@ -120,7 +120,6 @@ public class CycleFragment extends Fragment {
 
     @SuppressLint("NewApi")
     private void loadRestaurants() {
-        // TODO: Change to allow for configurable restaurants
         // TODO: Progress bar
         if(restaurants == null || restaurants.size() == 0) {
             Log.d(TAG, "loadRestaurants: Caching restaurants from API");
@@ -141,7 +140,8 @@ public class CycleFragment extends Fragment {
                         if (count > 0) {
                             JSONArray allRestaurants = data.getJSONArray("restaurants");
                             if(allRestaurants.length() < 1) {
-                                //TODO: Could not find any restaurants with provided filters, restart filter process
+                                ErrorFragment fragment = ErrorFragment.newInstance("No restaurants could be found with those filters", ErrorFragment.ALL_DESTINATIONS.FILTER, "Filter");
+                                getParentFragmentManager().beginTransaction().add(fragment, ErrorFragment.TAG).commit();
                             }
                             for (int i = 0; i < allRestaurants.length(); i++) {
                                 JSONObject currentRestaurant = allRestaurants.getJSONObject(i).getJSONObject("restaurant");
@@ -189,9 +189,15 @@ public class CycleFragment extends Fragment {
         if(currentRestaurant >= restaurants.size()) {
             Log.d(TAG, "showCurrentRestaurant: Finished iterating through restaurants");
             binding.getRoot().setOnTouchListener(null);
-            ListFragment fragment = ListFragment.newInstance(accepted, denied);
-            getParentFragmentManager().beginTransaction().replace(R.id.flContainer, fragment, ListFragment.TAG).addToBackStack(ListFragment.TAG).commit();
-
+            if(accepted.size() == 0) {
+                Log.d(TAG, "showCurrentRestaurant: No accepted restaurants, showing error message");
+                ErrorFragment fragment = ErrorFragment.newInstance("No restaurants could be found with those filters", ErrorFragment.ALL_DESTINATIONS.FILTER, "Filter");
+                getParentFragmentManager().beginTransaction().replace(R.id.flContainer, fragment, ErrorFragment.TAG).commit();
+            }
+            else {
+                ListFragment fragment = ListFragment.newInstance(accepted, denied);
+                getParentFragmentManager().beginTransaction().replace(R.id.flContainer, fragment, ListFragment.TAG).addToBackStack(ListFragment.TAG).commit();
+            }
             return;
         }
         Restaurant restaurant = restaurants.get(currentRestaurant);

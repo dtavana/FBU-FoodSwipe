@@ -62,6 +62,7 @@ public class FiltersAdapter extends RecyclerView.Adapter<FiltersAdapter.ViewHold
         public void bind(final RestaurantFilter filter) {
             this.filter = filter;
             binding.cbItem.setText(filter.getName());
+            binding.cbItem.setChecked(false);
             binding.cbItem.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {

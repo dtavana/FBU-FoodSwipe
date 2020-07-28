@@ -1,7 +1,12 @@
 package com.dtavana.foodswipe.models;
 
+import android.util.Log;
+
+import com.parse.FindCallback;
 import com.parse.ParseClassName;
+import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,7 +24,7 @@ public class Restaurant extends ParseObject {
     public static final String KEY_NAME = "name";
     public static final String KEY_RESTAURANTID = "restaurantId";
 
-    Number visitedCount;
+    Number visitedCount = 0;
     String name;
     Number restaurantId;
 
@@ -42,6 +47,8 @@ public class Restaurant extends ParseObject {
 
         JSONObject R = obj.getJSONObject("R");
         restaurant.setRestaurantId(R.getInt("res_id"));
+
+        restaurant.setupVisitedCount();
 
         restaurant.setName(obj.getString("name"));
 
@@ -73,8 +80,30 @@ public class Restaurant extends ParseObject {
         return restaurant;
     }
 
+    private void setupVisitedCount() {
+        ParseQuery<Restaurant> query = ParseQuery.getQuery(Restaurant.class);
+        query.whereEqualTo(KEY_RESTAURANTID, getRestaurantId());
+        query.findInBackground(new FindCallback<Restaurant>() {
+            @Override
+            public void done(List<Restaurant> objects, ParseException e) {
+                if(e != null) {
+                    Log.e(TAG, "done: Error finding existing visited count", e);
+                    setVisitedCount(0);
+                    return;
+                }
+                if(objects != null && objects.size() > 0) {
+                    Log.d(TAG, "done: Found existing restaurant");
+                    setVisitedCount(objects.get(0).getNumber(KEY_VISITEDCOUNT));
+                }
+                else {
+                    setVisitedCount(0);
+                }
+            }
+        });
+    }
+
     public Number getVisitedCount() {
-        return getNumber(KEY_VISITEDCOUNT);
+        return visitedCount;
     }
     public void setVisitedCount(Number visitedCount) { put(KEY_VISITEDCOUNT, visitedCount); this.visitedCount = visitedCount; }
 

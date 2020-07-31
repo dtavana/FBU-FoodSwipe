@@ -60,7 +60,7 @@ public class FinalFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 //TODO: Navigate to address
-                Uri gmmIntentUri = Uri.parse("google.navigation:q=" + restaurant.getAddress());
+                Uri gmmIntentUri = Uri.parse("google.navigation:q=" + Uri.encode(restaurant.getAddress()));
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");
                 startActivity(mapIntent);

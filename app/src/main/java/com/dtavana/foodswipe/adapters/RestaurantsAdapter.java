@@ -80,8 +80,8 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             binding.btnAccept.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    moveToFinalFragment();
                     cacheRestaurant();
+                    moveToFinalFragment();
                 }
             });
             binding.btnDeny.setOnClickListener(new View.OnClickListener() {

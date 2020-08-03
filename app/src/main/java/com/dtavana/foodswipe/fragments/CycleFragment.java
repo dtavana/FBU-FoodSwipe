@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -88,21 +89,21 @@ public class CycleFragment extends Fragment {
         location = args.getParcelable("location");
         loadRestaurants();
 
-        binding.getRoot().setOnTouchListener(new OnSwipeTouchListener(getContext()) {
+        binding.getRoot().setOnTouchListener(new OnSwipeTouchListener(this) {
             @Override
-            public void onSwipeLeft() {
+            public void onSwipeLeft(Animation a) {
                 Log.d(TAG, "onSwipeLeft: Swiping left");
                 denied.add(restaurants.get(currentRestaurant));
                 currentRestaurant++;
-                showCurrentRestaurant();
+                binding.rlRestaurant.startAnimation(a);
             }
 
             @Override
-            public void onSwipeRight() {
+            public void onSwipeRight(Animation a) {
                 Log.d(TAG, "onSwipeRight: Swiping right");
                 accepted.add(restaurants.get(currentRestaurant));
                 currentRestaurant++;
-                showCurrentRestaurant();
+                binding.rlRestaurant.startAnimation(a);
             }
         });
 
@@ -183,7 +184,7 @@ public class CycleFragment extends Fragment {
 
     }
 
-    private void showCurrentRestaurant() {
+    public void showCurrentRestaurant() {
         Log.d(TAG, "showCurrentRestaurant: Showing restaurant #" + currentRestaurant);
         // TODO: Limit number of restaurants that can be visited
         if(currentRestaurant >= restaurants.size()) {

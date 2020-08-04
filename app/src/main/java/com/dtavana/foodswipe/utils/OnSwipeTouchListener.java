@@ -84,7 +84,7 @@ public abstract class OnSwipeTouchListener implements View.OnTouchListener {
                             fragment.showCurrentRestaurant();
                         }
                     });
-                    onSwipeRight(a);
+                    onSwipeLeft(a);
                 }
                 return true;
             }

@@ -110,8 +110,8 @@ public class FilterFragment extends Fragment {
                 // Fix because we need to cache the last set of checkboxes
                 cacheCheckboxes();
 
-                FilterFirst.filtered = true;
-                FilterFirst.run(getParentFragmentManager(), filterCache, location);
+                SetupNavigation.filtered = true;
+                FilterFirst.run(getParentFragmentManager(), filterCache, location, null);
             }
         });
     }

@@ -12,11 +12,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.dtavana.foodswipe.R;
 import com.dtavana.foodswipe.databinding.ItemRestaurantBinding;
 import com.dtavana.foodswipe.fragments.DetailFragment;
-import com.dtavana.foodswipe.fragments.FinalFragment;
 import com.dtavana.foodswipe.models.Restaurant;
+import com.dtavana.foodswipe.utils.FilterFirst;
+import com.dtavana.foodswipe.utils.SetupNavigation;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -97,9 +97,8 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
 
         private void moveToFinalFragment() {
             FragmentManager manager = ((AppCompatActivity) ctx).getSupportFragmentManager();
-            Fragment fragment = FinalFragment.newInstance(restaurant);
-            String TAG = FinalFragment.TAG;
-            manager.beginTransaction().replace(R.id.flContainer, fragment, TAG).commit();
+            SetupNavigation.chosen = true;
+            FilterFirst.run(manager, null, null, restaurant);
         }
 
         private void cacheRestaurant() {

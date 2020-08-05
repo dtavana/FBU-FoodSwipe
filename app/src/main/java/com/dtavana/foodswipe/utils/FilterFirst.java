@@ -9,6 +9,8 @@ import androidx.fragment.app.FragmentManager;
 import com.dtavana.foodswipe.R;
 import com.dtavana.foodswipe.fragments.CycleFragment;
 import com.dtavana.foodswipe.fragments.FilterFragment;
+import com.dtavana.foodswipe.fragments.FinalFragment;
+import com.dtavana.foodswipe.models.Restaurant;
 import com.dtavana.foodswipe.models.RestaurantFilter;
 
 import java.util.HashMap;
@@ -17,14 +19,19 @@ import java.util.List;
 public class FilterFirst {
 
     public static final String LOG_TAG = "FilterFirst";
-
-    public static boolean filtered = false;
-
-    public static void run(FragmentManager manager, HashMap<FilterFragment.ALL_FILTERS, List<RestaurantFilter>> filterCache, Location location) {
+    public static void run(FragmentManager manager, HashMap<FilterFragment.ALL_FILTERS, List<RestaurantFilter>> filterCache, Location location, Restaurant restaurant) {
         Fragment fragment;
         String TAG;
 
-        if(filtered) {
+        if(SetupNavigation.chosen) {
+            Log.d(LOG_TAG, "run: Running FinalFragment");
+            TAG = FinalFragment.TAG;
+            fragment = manager.findFragmentByTag(TAG);
+            if(fragment == null) {
+                fragment = FinalFragment.newInstance(restaurant);
+            }
+        }
+        else if(SetupNavigation.filtered) {
             Log.d(LOG_TAG, "run: Running CycleFragment");
             TAG = CycleFragment.TAG;
             fragment = manager.findFragmentByTag(TAG);

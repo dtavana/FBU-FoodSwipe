@@ -6,6 +6,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.RelativeLayout;
 
 import com.dtavana.foodswipe.R;
 import com.dtavana.foodswipe.fragments.CycleFragment;
@@ -19,10 +20,12 @@ public abstract class OnSwipeTouchListener implements View.OnTouchListener {
     private final GestureDetector gestureDetector;
 
     private final CycleFragment fragment;
+    private final RelativeLayout rvRestaurant;
     private final Context context;
 
-    public OnSwipeTouchListener(CycleFragment fragment) {
+    public OnSwipeTouchListener(CycleFragment fragment, RelativeLayout rvRestaurant) {
         this.fragment = fragment;
+        this.rvRestaurant = rvRestaurant;
         this.context = fragment.getContext();
         gestureDetector = new GestureDetector(context, new GestureListener());
     }
@@ -64,6 +67,7 @@ public abstract class OnSwipeTouchListener implements View.OnTouchListener {
                         @Override
                         public void onAnimationEnd(Animation animation) {
                             fragment.showCurrentRestaurant();
+                            rvRestaurant.setBackgroundColor(context.getResources().getColor(android.R.color.white));
                         }
                     });
                     onSwipeRight(a);
@@ -81,6 +85,7 @@ public abstract class OnSwipeTouchListener implements View.OnTouchListener {
 
                         @Override
                         public void onAnimationEnd(Animation animation) {
+                            rvRestaurant.setBackgroundColor(context.getResources().getColor(android.R.color.white));
                             fragment.showCurrentRestaurant();
                         }
                     });

@@ -89,12 +89,13 @@ public class CycleFragment extends Fragment {
         location = args.getParcelable("location");
         loadRestaurants();
 
-        binding.getRoot().setOnTouchListener(new OnSwipeTouchListener(this) {
+        binding.getRoot().setOnTouchListener(new OnSwipeTouchListener(this, binding.rlRestaurant) {
             @Override
             public void onSwipeLeft(Animation a) {
                 Log.d(TAG, "onSwipeLeft: Swiping left");
                 denied.add(restaurants.get(currentRestaurant));
                 currentRestaurant++;
+                binding.rlRestaurant.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
                 binding.rlRestaurant.startAnimation(a);
             }
 
@@ -103,6 +104,7 @@ public class CycleFragment extends Fragment {
                 Log.d(TAG, "onSwipeRight: Swiping right");
                 accepted.add(restaurants.get(currentRestaurant));
                 currentRestaurant++;
+                binding.rlRestaurant.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
                 binding.rlRestaurant.startAnimation(a);
             }
         });

@@ -6,6 +6,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.RelativeLayout;
 
 import com.dtavana.foodswipe.R;
 import com.dtavana.foodswipe.fragments.CycleFragment;
@@ -19,10 +20,12 @@ public abstract class OnSwipeTouchListener implements View.OnTouchListener {
     private final GestureDetector gestureDetector;
 
     private final CycleFragment fragment;
+    private final RelativeLayout rlRestaurant;
     private final Context context;
 
-    public OnSwipeTouchListener(CycleFragment fragment) {
+    public OnSwipeTouchListener(CycleFragment fragment, RelativeLayout rlRestaurant) {
         this.fragment = fragment;
+        this.rlRestaurant = rlRestaurant;
         this.context = fragment.getContext();
         gestureDetector = new GestureDetector(context, new GestureListener());
     }
@@ -55,6 +58,7 @@ public abstract class OnSwipeTouchListener implements View.OnTouchListener {
                     a.setAnimationListener(new Animation.AnimationListener() {
                         @Override
                         public void onAnimationStart(Animation animation) {
+                            rlRestaurant.setBackgroundColor(context.getResources().getColor(android.R.color.holo_green_light));
                         }
 
                         @Override
@@ -64,6 +68,7 @@ public abstract class OnSwipeTouchListener implements View.OnTouchListener {
                         @Override
                         public void onAnimationEnd(Animation animation) {
                             fragment.showCurrentRestaurant();
+                            rlRestaurant.setBackgroundColor(context.getResources().getColor(android.R.color.white));
                         }
                     });
                     onSwipeRight(a);
@@ -73,6 +78,7 @@ public abstract class OnSwipeTouchListener implements View.OnTouchListener {
                     a.setAnimationListener(new Animation.AnimationListener() {
                         @Override
                         public void onAnimationStart(Animation animation) {
+                            rlRestaurant.setBackgroundColor(context.getResources().getColor(android.R.color.holo_red_light));
                         }
 
                         @Override
@@ -81,6 +87,7 @@ public abstract class OnSwipeTouchListener implements View.OnTouchListener {
 
                         @Override
                         public void onAnimationEnd(Animation animation) {
+                            rlRestaurant.setBackgroundColor(context.getResources().getColor(android.R.color.white));
                             fragment.showCurrentRestaurant();
                         }
                     });

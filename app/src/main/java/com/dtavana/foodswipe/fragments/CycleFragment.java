@@ -89,7 +89,7 @@ public class CycleFragment extends Fragment {
         location = args.getParcelable("location");
         loadRestaurants();
 
-        binding.getRoot().setOnTouchListener(new OnSwipeTouchListener(this) {
+        binding.getRoot().setOnTouchListener(new OnSwipeTouchListener(this, binding.rlRestaurant) {
             @Override
             public void onSwipeLeft(Animation a) {
                 Log.d(TAG, "onSwipeLeft: Swiping left");

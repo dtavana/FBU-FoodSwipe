@@ -8,15 +8,14 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dtavana.foodswipe.databinding.ItemRestaurantBinding;
-import com.dtavana.foodswipe.fragments.DetailFragment;
 import com.dtavana.foodswipe.models.Restaurant;
 import com.dtavana.foodswipe.utils.FilterFirst;
 import com.dtavana.foodswipe.utils.SetupNavigation;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -151,10 +150,10 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         @Override
         public void onClick(View view) {
             Log.d(TAG, "onClick: Click detected");
-            FragmentManager manager = ((AppCompatActivity) ctx).getSupportFragmentManager();
-            Fragment fragment = DetailFragment.newInstance(restaurant);
-            String TAG = DetailFragment.TAG;
-            manager.beginTransaction().add(fragment, TAG).commit();
+            new MaterialAlertDialogBuilder(ctx)
+                    .setTitle(restaurant.getName())
+                    .setMessage(restaurant.toString())
+                    .show();
         }
     }
 }

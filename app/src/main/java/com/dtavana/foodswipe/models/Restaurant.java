@@ -2,6 +2,8 @@ package com.dtavana.foodswipe.models;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.parse.FindCallback;
 import com.parse.ParseClassName;
 import com.parse.ParseException;
@@ -195,11 +197,28 @@ public class Restaurant extends ParseObject {
         }
 
         public String getVotesString() {
-            return String.format("%s : %d Votes", text, votes);
+            return String.format("%s: %d Votes", text, votes);
         }
 
         public String getRatingString() {
             return String.format("%.2f/5.0", rating);
         }
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(getCuisines()).append("\n");
+        Number visitedCount = getVisitedCount();
+        String visitedCountString = String.format("Visited %d time(s)", visitedCount == null ? 0 : visitedCount);
+        builder.append(visitedCountString).append("\n");
+        String address = String.format("%s, %s", getAddress(), getCity());
+        builder.append(address).append("\n");
+        builder.append(getTimings()).append("\n");
+        Restaurant.Rating rating = getRating();
+        builder.append(rating.getVotesString()).append("\n");
+        builder.append(rating.getRatingString()).append("\n");
+        return builder.toString();
     }
 }

@@ -14,7 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import com.codepath.asynchttpclient.RequestParams;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
@@ -25,6 +24,7 @@ import com.dtavana.foodswipe.models.RestaurantFilter;
 import com.dtavana.foodswipe.network.FoodSwipeApplication;
 import com.dtavana.foodswipe.network.FoodSwipeClient;
 import com.dtavana.foodswipe.utils.OnSwipeTouchListener;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -111,10 +111,10 @@ public class CycleFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "onClick: Click detected");
-                FragmentManager manager = getChildFragmentManager();
-                Fragment fragment = DetailFragment.newInstance(restaurants.get(currentRestaurant));
-                String TAG = DetailFragment.TAG;
-                manager.beginTransaction().add(fragment, TAG).commit();
+                new MaterialAlertDialogBuilder(getContext())
+                        .setTitle(restaurants.get(currentRestaurant).getName())
+                        .setMessage(restaurants.get(currentRestaurant).toString())
+                        .show();
             }
         });
     }

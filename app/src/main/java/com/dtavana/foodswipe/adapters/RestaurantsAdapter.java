@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.dtavana.foodswipe.databinding.ItemRestaurantBinding;
 import com.dtavana.foodswipe.fragments.DetailFragment;
 import com.dtavana.foodswipe.models.Restaurant;
+import com.dtavana.foodswipe.utils.FilterFirst;
+import com.dtavana.foodswipe.utils.SetupNavigation;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -78,8 +80,8 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             binding.btnAccept.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //TODO: Instantly move to final restaurant and cache fragment there to avoid multiple presses of a button
                     cacheRestaurant();
+                    moveToFinalFragment();
                 }
             });
             binding.btnDeny.setOnClickListener(new View.OnClickListener() {
@@ -91,6 +93,12 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                     notifyItemRemoved(index);
                 }
             });
+        }
+
+        private void moveToFinalFragment() {
+            FragmentManager manager = ((AppCompatActivity) ctx).getSupportFragmentManager();
+            SetupNavigation.chosen = true;
+            FilterFirst.run(manager, null, null, restaurant);
         }
 
         private void cacheRestaurant() {
@@ -136,7 +144,6 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                             }
                         });
                     }
-                    //TODO: Show final restaurant fragment
                 }
             });
         }

@@ -13,23 +13,32 @@ import com.dtavana.foodswipe.fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class SetupNavigation {
+
+    public static boolean filtered = false;
+    public static boolean chosen = false;
+
     public static void run(final FragmentManager manager, ActivityMainBinding binding) {
         binding.navigation.getRoot().setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment fragment;
-                String TAG;
+                Fragment fragment = null;
+                String TAG = null;
+                boolean skip = false;
                 switch (item.getItemId()) {
                     case R.id.miList:
-                        TAG = ListFragment.TAG;
-                        fragment = manager.findFragmentByTag(TAG);
-                        if(fragment == null) {
-                            fragment = new ListFragment();
+                        if(!chosen && filtered) {
+                            TAG = ListFragment.TAG;
+                            fragment = manager.findFragmentByTag(TAG);
+                            if(fragment == null) {
+                                fragment = new ListFragment();
+                            }
+                        } else {
+                            skip = true;
                         }
                         break;
                     case R.id.miCycle:
                     default:
-                        FilterFirst.run(manager, null, null);
+                        FilterFirst.run(manager, null, null, null);
                         return true;
                     case R.id.miProfile:
                         TAG = ProfileFragment.TAG;
@@ -39,7 +48,9 @@ public class SetupNavigation {
                         }
                         break;
                 }
-                manager.beginTransaction().replace(R.id.flContainer, fragment, TAG).addToBackStack(TAG).commit();
+                if(!skip) {
+                    manager.beginTransaction().replace(R.id.flContainer, fragment, TAG).addToBackStack(TAG).commit();
+                }
                 return true;
             }
         });

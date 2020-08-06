@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.dtavana.foodswipe.activities.LoginActivity;
 import com.dtavana.foodswipe.databinding.FragmentProfileBinding;
@@ -32,9 +33,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import static androidx.core.content.FileProvider.getUriForFile;
-
 import static android.app.Activity.RESULT_OK;
+import static androidx.core.content.FileProvider.getUriForFile;
 
 public class ProfileFragment extends Fragment {
 
@@ -76,6 +76,10 @@ public class ProfileFragment extends Fragment {
                             Log.e(TAG, "done: Error logging out", e);
                         }
                         Log.d(TAG, "done: Done logging out, returning to login screen");
+                        FragmentManager fm = getParentFragmentManager(); // or 'getSupportFragmentManager();'
+                        for(int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+                            fm.popBackStack();
+                        }
                         Intent i = new Intent(getActivity(), LoginActivity.class);
                         startActivity(i);
                     }

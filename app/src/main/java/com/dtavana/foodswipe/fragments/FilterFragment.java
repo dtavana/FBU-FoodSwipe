@@ -26,8 +26,7 @@ import com.dtavana.foodswipe.models.RestaurantFilter;
 import com.dtavana.foodswipe.network.FoodSwipeApplication;
 import com.dtavana.foodswipe.network.FoodSwipeClient;
 import com.dtavana.foodswipe.utils.FilterFirst;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.dtavana.foodswipe.utils.SetupNavigation;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,6 +35,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import io.nlopez.smartlocation.OnLocationUpdatedListener;
+import io.nlopez.smartlocation.SmartLocation;
 import okhttp3.Headers;
 
 public class FilterFragment extends Fragment {
@@ -109,8 +110,8 @@ public class FilterFragment extends Fragment {
                 // Fix because we need to cache the last set of checkboxes
                 cacheCheckboxes();
 
-                FilterFirst.filtered = true;
-                FilterFirst.run(getParentFragmentManager(), filterCache, location);
+                SetupNavigation.filtered = true;
+                FilterFirst.run(getParentFragmentManager(), filterCache, location, null);
             }
         });
     }
@@ -152,21 +153,24 @@ public class FilterFragment extends Fragment {
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_REQUEST_CODE);
             return;
         }
-        LocationServices.getFusedLocationProviderClient(getActivity()).getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location loc) {
-                if (loc == null) {
-                    Log.e(TAG, "onSuccess: Error loading location");
-                    return;
-                }
-                location = loc;
-                params = new RequestParams();
-                params.put("lat", (long) location.getLatitude());
-                params.put("lon", (long) location.getLongitude());
-                setupNextButton();
-                loadCategories();
-            }
-        });
+
+        SmartLocation.with(getContext()).location()
+                .oneFix()
+                .start(new OnLocationUpdatedListener() {
+                    @Override
+                    public void onLocationUpdated(Location loc) {
+                        if (loc == null) {
+                            Log.e(TAG, "onSuccess: Error loading location");
+                            return;
+                        }
+                        location = loc;
+                        params = new RequestParams();
+                        params.put("lat", (long) location.getLatitude());
+                        params.put("lon", (long) location.getLongitude());
+                        setupNextButton();
+                        loadCategories();
+                    }
+                });
     }
 
     private void loadEstablishments() {

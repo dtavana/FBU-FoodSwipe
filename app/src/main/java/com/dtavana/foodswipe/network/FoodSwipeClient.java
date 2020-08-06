@@ -23,6 +23,11 @@ public class FoodSwipeClient extends AsyncHttpClient {
 
     public void getRestaurants(RequestParams params, JsonHttpResponseHandler handler) {
         String apiUrl = getApiUrl("search");
+        // Default to an approximate 10 mile radius
+        // TODO: Make radius configurable
+        params.put("radius", 8000);
+        params.put("sort", "real_distance");
+        params.put("order", "asc");
         Log.d(TAG, "getRestaurants: Resolved apiUrl: " + apiUrl);
         get(apiUrl, baseHeaders, params, handler);
     }

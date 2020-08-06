@@ -4,6 +4,11 @@ import android.content.Context;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+
+import com.dtavana.foodswipe.R;
+import com.dtavana.foodswipe.fragments.CycleFragment;
 
 /**
  * Detects left and right swipes across a view.
@@ -13,13 +18,18 @@ public abstract class OnSwipeTouchListener implements View.OnTouchListener {
 
     private final GestureDetector gestureDetector;
 
-    public OnSwipeTouchListener(Context context) {
+    private final CycleFragment fragment;
+    private final Context context;
+
+    public OnSwipeTouchListener(CycleFragment fragment) {
+        this.fragment = fragment;
+        this.context = fragment.getContext();
         gestureDetector = new GestureDetector(context, new GestureListener());
     }
 
-    public abstract void onSwipeLeft();
+    public abstract void onSwipeLeft(Animation a);
 
-    public abstract void onSwipeRight();
+    public abstract void onSwipeRight(Animation a);
 
     public boolean onTouch(View v, MotionEvent event) {
         return gestureDetector.onTouchEvent(event);
@@ -40,10 +50,42 @@ public abstract class OnSwipeTouchListener implements View.OnTouchListener {
             float distanceX = e2.getX() - e1.getX();
             float distanceY = e2.getY() - e1.getY();
             if (Math.abs(distanceX) > Math.abs(distanceY) && Math.abs(distanceX) > SWIPE_DISTANCE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
-                if (distanceX > 0)
-                    onSwipeRight();
-                else
-                    onSwipeLeft();
+                if (distanceX > 0) {
+                    Animation a = AnimationUtils.loadAnimation(context, R.anim.out_right);
+                    a.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            fragment.showCurrentRestaurant();
+                        }
+                    });
+                    onSwipeRight(a);
+                }
+                else{
+                    Animation a = AnimationUtils.loadAnimation(context, R.anim.out_left);
+                    a.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            fragment.showCurrentRestaurant();
+                        }
+                    });
+                    onSwipeLeft(a);
+                }
                 return true;
             }
             return false;

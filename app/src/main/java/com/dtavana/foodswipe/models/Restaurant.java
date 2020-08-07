@@ -209,15 +209,15 @@ public class Restaurant extends ParseObject {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append(getCuisines()).append("\n");
+        builder.append(getCuisines()).append("\n\n");
         Number visitedCount = getVisitedCount();
         String visitedCountString = String.format("Visited %d time(s)", visitedCount == null ? 0 : visitedCount);
-        builder.append(visitedCountString).append("\n");
+        builder.append(visitedCountString).append("\n\n");
         String address = String.format("%s, %s", getAddress(), getCity());
-        builder.append(address).append("\n");
-        builder.append(getTimings()).append("\n");
+        builder.append(address).append("\n\n");
+        builder.append(getTimings()).append("\n\n");
         Restaurant.Rating rating = getRating();
-        builder.append(rating.getVotesString()).append("\n");
+        builder.append(rating.getVotesString()).append("\n\n");
         builder.append(rating.getRatingString()).append("\n");
         return builder.toString();
     }

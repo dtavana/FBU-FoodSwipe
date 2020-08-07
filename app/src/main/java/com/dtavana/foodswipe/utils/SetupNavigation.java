@@ -26,7 +26,7 @@ public class SetupNavigation {
                 boolean skip = false;
                 switch (item.getItemId()) {
                     case R.id.miList:
-                        if(!chosen && filtered) {
+                        if(chosen && filtered) {
                             TAG = ListFragment.TAG;
                             fragment = manager.findFragmentByTag(TAG);
                             if(fragment == null) {

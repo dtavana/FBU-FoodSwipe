@@ -30,7 +30,7 @@ FoodSwipe is a platform that allows a user to easily pick a restaurant they woul
     * Create a profile signup
     * Create a page to show a detailed view of a restaurant
     * Create a page to showcase a restaurant that allows users to accept or deny the restaurant
-    * Create a page that allows a user to view all accepted/denied restaurants
+    * Create a page that allows a user to view all accepted restaurants
 * Cache restaurants that have been chosen to attend in a database
 * Allow users to log in/log out of the app
 * Allow users to signup with a new profile with basic information
@@ -61,6 +61,14 @@ FoodSwipe is a platform that allows a user to easily pick a restaurant they woul
 * Allow a user to login with Facebook
 * Allow a user to see how many times a specific restaurant has been visited
    * Generate a Unique ID per restaurant
+   
+***Added stretch features
+
+* Error fragment that is easily reusable for different messages
+* Include rating data in restaurant detail view
+* Order restaurants by their distance to the current location in restaurant cycle
+* Allow the user to remove restaurants from the accepted restaurants list
+* 
 
 ### 2. Screen Archetypes
 
